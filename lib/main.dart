@@ -1,22 +1,35 @@
+import 'package:bootx_app/core/helper_functions/on_generate_routes.dart';
+import 'package:bootx_app/core/services/shared_preferences/shared_pref_manger.dart';
+import 'package:bootx_app/core/utils/app_colors.dart';
+import 'package:bootx_app/features/splash/splash_page.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const BootXApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PrefManger.SharedPrefManger().init();
+  runApp(
+    DevicePreview(
+      enabled: true,
+      builder: (BuildContext context) => const MyApp(),
+    ),
+  );
 }
 
-class BootXApp extends StatelessWidget {
-  const BootXApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'BootX',
-      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      onGenerateRoute: onGenerateRoutes,
       theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        scaffoldBackgroundColor: Color(0xffF8F9FA),
+        fontFamily: 'DM Mono',
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
       ),
-      home: const Scaffold(body: Center(child: Text('BootX App'))),
+      home: SplashPage(),
     );
   }
 }
