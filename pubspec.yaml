@@ -64,7 +64,8 @@ flutter:
 
   uses-material-design: true
 
-
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -78,7 +79,13 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-
+  fonts:
+    - family: Airbnb Cereal
+      fonts:
+        - asset: assets/fonts/AirbnbCereal_W_Md.otf
+          weight: 500
+        - asset: assets/fonts/AirbnbCereal_W_Bk.otf
+          weight: 400
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
