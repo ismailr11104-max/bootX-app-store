@@ -9,7 +9,7 @@ import 'package:bootx_app/features/auth/presentation/page/sign_up_page.dart';
 import 'package:bootx_app/features/auth/presentation/widget/auth_footer_widget.dart';
 import 'package:bootx_app/features/auth/presentation/widget/auth_header_widget.dart';
 import 'package:bootx_app/features/auth/presentation/widget/google_signIn_button.dart';
-import 'package:bootx_app/features/home/presentation/page/home_page.dart';
+import 'package:bootx_app/features/main_navigation_screen/presentation/main_navigation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,8 +83,9 @@ class _SignInBodyState extends State<SignInBody> {
                         backgroundColor: Colors.green,
                       ),
                     );
-                    Navigator.of(context)
-                        .pushReplacementNamed(HomePage.homeRouts);
+                    Navigator.of(context).pushReplacementNamed(
+                      MainNavigationView.routeBottomNavigation,
+                    );
                   } else if (state is SignInError) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

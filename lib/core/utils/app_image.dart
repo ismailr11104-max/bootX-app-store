@@ -13,4 +13,14 @@ class AppImage {
   static const String splashImage = 'assets/images/splash.svg';
 
   static const String localMall = 'assets/images/local_mall.svg';
+
+  static const String profileNonactive = 'assets/images/profile_nonactive.svg';
+  static const String profileActive = 'assets/images/profile_active.svg';
+  static const String favoriteNonactive =
+      'assets/images/favorite_nonactive.svg';
+  static const String favoriteActive = 'assets/images/favorite_active.svg';
+  static const String homeActive = 'assets/images/home_active.svg';
+  static const String homeNonActive = 'assets/images/home_nonactive.svg';
+  static const String cartActive = 'assets/images/cart_active.svg';
+  static const String cartNonActive = 'assets/images/cart_nonactive.svg';
 }
