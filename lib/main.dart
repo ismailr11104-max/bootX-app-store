@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       onGenerateRoute: onGenerateRoutes,
       theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xffF8F9FA),
+        scaffoldBackgroundColor: const Color(0xFFF8F9FA),
         fontFamily: 'DM Mono',
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
       ),

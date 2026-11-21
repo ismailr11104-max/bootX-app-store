@@ -1,30 +1,26 @@
+import 'package:bootx_app/core/entity/product_entity.dart';
 import 'package:bootx_app/core/utils/app_colors.dart';
 import 'package:bootx_app/core/utils/app_text_styles.dart';
 import 'package:bootx_app/core/wigets/custom_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductItemCard extends StatelessWidget {
-  final String title;
   final String? tag;
-  final double price;
-  final String imageUrl;
-  final VoidCallback? onTap;
+  final ProductEntity productEntity;
   final VoidCallback? onAddTap;
 
   const ProductItemCard({
     super.key,
-    required this.title,
     this.tag = 'BEST SELLER',
-    required this.price,
-    required this.imageUrl,
-    this.onTap,
     this.onAddTap,
+    required this.productEntity,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {},
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -53,7 +49,7 @@ class ProductItemCard extends StatelessWidget {
                   child: CustomNetworkImage(
                     width: double.infinity,
                     height: double.infinity,
-                    imageUrl: imageUrl,
+                    imageUrl: productEntity.image,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -75,7 +71,7 @@ class ProductItemCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14.0),
               child: Text(
-                title,
+                productEntity.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.medium18.copyWith(
@@ -93,29 +89,31 @@ class ProductItemCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 14.0, bottom: 14.0),
                   child: Text(
-                    '\$$price',
+                    "${productEntity.price}",
                     style: AppTextStyles.medium16.copyWith(
                       color: AppColors.textLightPrimary,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: onAddTap,
-                  child: Container(
-                    width: 44,
-                    height: 44,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF5B9EE1),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16),
-                        bottomRight: Radius.circular(20),
+                Skeleton.leaf(
+                  child: GestureDetector(
+                    onTap: onAddTap,
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF5B9EE1),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          bottomRight: Radius.circular(20),
+                        ),
                       ),
-                    ),
-                    child: const Icon(
-                      Icons.add_rounded,
-                      color: Colors.white,
-                      size: 24,
+                      child: const Icon(
+                        Icons.add_rounded,
+                        color: Colors.white,
+                        size: 24,
+                      ),
                     ),
                   ),
                 ),

@@ -23,4 +23,8 @@ class AppImage {
   static const String homeNonActive = 'assets/images/home_nonactive.svg';
   static const String cartActive = 'assets/images/cart_active.svg';
   static const String cartNonActive = 'assets/images/cart_nonactive.svg';
+
+  static const String searchIcon = 'assets/images/search_icon.svg';
+  static const String searchEmpty = 'assets/images/search_empty.svg';
+  static const String errorView = 'assets/images/error_view.svg';
 }
