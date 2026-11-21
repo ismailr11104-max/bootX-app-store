@@ -38,8 +38,10 @@ class _SplashPageState extends State<SplashPage> {
       final bool isSignIn =
           PrefManger.SharedPrefManger().getBool("isSignIn") ?? false;
       if (!onboardingCompleted) {
-        Navigator.of(context)
-            .pushReplacementNamed(OnboardingPage.onboardingRouts);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          OnboardingPage.onboardingRouts,
+          (route) => false,
+        );
       } else if (!isSignIn) {
         Navigator.of(context).pushReplacementNamed(SignInPage.signInRouts);
       } else {

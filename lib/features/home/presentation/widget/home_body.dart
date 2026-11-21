@@ -1,6 +1,7 @@
+import 'package:bootx_app/core/wigets/custom_search_bar.dart';
 import 'package:bootx_app/features/home/presentation/widget/category_bloc_view.dart';
-import 'package:bootx_app/features/home/presentation/widget/custom_search_bar.dart';
-import 'package:bootx_app/features/home/presentation/widget/product_grid_view.dart';
+import 'package:bootx_app/features/home/presentation/widget/product_bloc_view.dart';
+import 'package:bootx_app/features/search/presentation/page/search_page.dart';
 import 'package:flutter/material.dart';
 
 class Homebody extends StatelessWidget {
@@ -11,9 +12,19 @@ class Homebody extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: Column(children: [CustomSearchBar(), CategoryBlocView()]),
+          child: Column(
+            children: [
+              CustomSearchBar(
+                onTap: () {
+                  Navigator.of(context).pushNamed(SearchPage.searchRoute);
+                },
+                readOnly: true,
+              ),
+              CategoryBlocView(),
+            ],
+          ),
         ),
-        ProductGridView(),
+        ProductBlocView(),
       ],
     );
   }
