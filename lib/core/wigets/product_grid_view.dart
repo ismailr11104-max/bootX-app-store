@@ -1,3 +1,4 @@
+import 'package:bootx_app/core/entity/product_entity.dart';
 import 'package:bootx_app/core/wigets/product_item_card.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_product/product_bloc.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_product/product_state.dart';
@@ -5,13 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductGridView extends StatelessWidget {
-  const ProductGridView({super.key});
+  const ProductGridView({super.key, List<ProductEntity> products = const []});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
-        // 1. حالة التحميل
         if (state is ProductLoading || state is ProductInitial) {
           return const SliverToBoxAdapter(
             child: Padding(
@@ -20,8 +20,6 @@ class ProductGridView extends StatelessWidget {
             ),
           );
         }
-
-        // 2. حالة حدوث خطأ
         if (state is ProductError) {
           return SliverToBoxAdapter(
             child: Padding(
@@ -36,7 +34,6 @@ class ProductGridView extends StatelessWidget {
           );
         }
 
-        // 3. حالة نجاح جلب المنتجات
         if (state is ProductLoaded) {
           return SliverPadding(
             padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
@@ -44,17 +41,9 @@ class ProductGridView extends StatelessWidget {
               delegate: SliverChildBuilderDelegate((context, index) {
                 final product = state.products[index];
                 return ProductItemCard(
-                  title: product.name,
-                  // استبدل بالحقول الخاصة بـ ProductEntity
                   tag: 'BEST SELLER',
-                  price: product.price,
-                  imageUrl: product.image,
-                  onTap: () {
-                    // الانتقال لتفاصيل المنتج
-                  },
-                  onAddTap: () {
-                    // إضافة المنتج للسلة
-                  },
+                  productEntity: product,
+                  onAddTap: () {},
                 );
               }, childCount: state.products.length),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
