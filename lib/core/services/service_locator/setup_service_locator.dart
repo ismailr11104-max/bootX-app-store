@@ -1,6 +1,7 @@
 import 'package:bootx_app/core/services/network/api_dio_config.dart';
 import 'package:bootx_app/core/services/network/api_service.dart';
 import 'package:bootx_app/core/services/network/api_service_impl.dart';
+import 'package:bootx_app/core/services/shared_preferences/shared_pref_manger.dart';
 import 'package:bootx_app/features/auth/data/date_sourse/sign_in_remote_data_source.dart';
 import 'package:bootx_app/features/auth/data/date_sourse/sign_in_remote_data_source_impl.dart';
 import 'package:bootx_app/features/auth/data/date_sourse/sign_up_remote_data_source.dart';
@@ -23,6 +24,17 @@ import 'package:bootx_app/features/home/domain/usecase/get_categories_usecase.da
 import 'package:bootx_app/features/home/domain/usecase/get_product_usecase.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_category/bloc_category_bloc.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_product/product_bloc.dart';
+import 'package:bootx_app/features/search/data/data_source/search_history_local_data_source.dart';
+import 'package:bootx_app/features/search/data/data_source/search_history_local_data_source_impl.dart';
+import 'package:bootx_app/features/search/data/data_source/search_remote_data_source.dart';
+import 'package:bootx_app/features/search/data/data_source/search_remote_data_source_impl.dart';
+import 'package:bootx_app/features/search/data/repo/search_history_repository_impl.dart';
+import 'package:bootx_app/features/search/data/repo/search_repository_impl.dart';
+import 'package:bootx_app/features/search/domain/repo/search_history_repository.dart';
+import 'package:bootx_app/features/search/domain/repo/search_repository.dart';
+import 'package:bootx_app/features/search/domain/usecase/search_history_usecases.dart';
+import 'package:bootx_app/features/search/domain/usecase/search_products_usecase.dart';
+import 'package:bootx_app/features/search/presentation/controller/search_bloc/search_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -84,4 +96,57 @@ void setupServiceLocator() {
   getIt.registerFactory<ProductBloc>(
     () => ProductBloc(getProductUseCase: getIt<GetProductUseCase>()),
   );
+
+  // Search Feature
+
+  // Remote Data Source
+  getIt.registerLazySingleton<SearchRemoteDataSource>(
+    () => SearchRemoteDataSourceImpl(getIt<ApiService>()),
+  );
+
+  // Search Repository
+  getIt.registerLazySingleton<SearchRepository>(
+    () =>
+        SearchRepositoryImpl(remoteDataSource: getIt<SearchRemoteDataSource>()),
+  );
+
+  // Search UseCase
+  getIt.registerLazySingleton<SearchProductsUseCase>(
+    () => SearchProductsUseCase(getIt<SearchRepository>()),
+  );
+
+  // History Local Data Source
+  getIt.registerLazySingleton<SearchHistoryLocalDataSource>(
+    () => SearchHistoryLocalDataSourceImpl(prefManger: getIt<PrefManger>()),
+  );
+
+  // History Repository
+  getIt.registerLazySingleton<SearchHistoryRepository>(
+    () => SearchHistoryRepositoryImpl(
+      localDataSource: getIt<SearchHistoryLocalDataSource>(),
+    ),
+  );
+
+  // History UseCases
+  getIt.registerLazySingleton<GetSearchHistoryUseCase>(
+    () => GetSearchHistoryUseCase(getIt<SearchHistoryRepository>()),
+  );
+
+  getIt.registerLazySingleton<SaveSearchQueryUseCase>(
+    () => SaveSearchQueryUseCase(getIt<SearchHistoryRepository>()),
+  );
+
+  getIt.registerLazySingleton<DeleteSearchQueryUseCase>(
+    () => DeleteSearchQueryUseCase(getIt<SearchHistoryRepository>()),
+  );
+
+  getIt.registerFactory<SearchBloc>(
+    () => SearchBloc(
+      searchProductsUseCase: getIt<SearchProductsUseCase>(),
+      getSearchHistoryUseCase: getIt<GetSearchHistoryUseCase>(),
+      saveSearchQueryUseCase: getIt<SaveSearchQueryUseCase>(),
+      deleteSearchQueryUseCase: getIt<DeleteSearchQueryUseCase>(),
+    ),
+  );
+  getIt.registerLazySingleton<PrefManger>(() => PrefManger.SharedPrefManger());
 }

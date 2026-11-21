@@ -17,7 +17,6 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
