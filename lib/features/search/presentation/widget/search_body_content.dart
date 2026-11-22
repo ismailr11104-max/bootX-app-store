@@ -4,6 +4,7 @@ import 'package:bootx_app/core/wigets/app_empty_view.dart';
 import 'package:bootx_app/core/wigets/app_error_view.dart';
 import 'package:bootx_app/core/wigets/product_grid_view.dart';
 import 'package:bootx_app/features/search/presentation/controller/search_bloc/search_bloc.dart';
+import 'package:bootx_app/features/product_details/presentation/page/product_details_page.dart';
 import 'package:bootx_app/features/search/presentation/controller/search_bloc/search_state.dart';
 import 'package:bootx_app/features/search/presentation/widget/search_history_view.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,14 @@ class SearchBodyContent extends StatelessWidget {
 
         if (state is SearchSuccess) {
           return CustomScrollView(
-            slivers: [ProductGridView(products: state.products)],
+            slivers: [
+              ProductGridView(
+                products: state.products,
+                onProductTap: (_) =>
+                    Navigator.of(context)
+                        .pushNamed(ProductDetailsPage.detailsRoute),
+              ),
+            ],
           );
         }
 

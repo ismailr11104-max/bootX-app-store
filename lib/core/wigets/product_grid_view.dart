@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class ProductGridView extends StatelessWidget {
   final List<ProductEntity> products;
+  final ValueChanged<ProductEntity>? onProductTap;
 
-  const ProductGridView({super.key, required this.products});
+  const ProductGridView({super.key, required this.products, this.onProductTap});
 
   @override
   Widget build(BuildContext context) {

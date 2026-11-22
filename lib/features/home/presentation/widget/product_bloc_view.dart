@@ -3,6 +3,7 @@ import 'package:bootx_app/core/wigets/app_error_view.dart';
 import 'package:bootx_app/core/wigets/product_grid_view.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_product/product_bloc.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_product/product_state.dart';
+import 'package:bootx_app/features/product_details/presentation/page/product_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -15,7 +16,12 @@ class ProductBlocView extends StatelessWidget {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
         if (state is ProductLoaded) {
-          return ProductGridView(products: state.products);
+          return ProductGridView(
+            products: state.products,
+            onProductTap: (_) =>
+                Navigator.of(context)
+                    .pushNamed(ProductDetailsPage.detailsRoute),
+          );
         }
 
         if (state is ProductLoading || state is ProductInitial) {
