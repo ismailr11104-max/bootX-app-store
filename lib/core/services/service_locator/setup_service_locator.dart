@@ -24,6 +24,12 @@ import 'package:bootx_app/features/home/domain/usecase/get_categories_usecase.da
 import 'package:bootx_app/features/home/domain/usecase/get_product_usecase.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_category/bloc_category_bloc.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_product/product_bloc.dart';
+import 'package:bootx_app/features/product_details/data/data_source/product_details_remote_data_source.dart';
+import 'package:bootx_app/features/product_details/data/data_source/product_details_remote_data_source_impl.dart';
+import 'package:bootx_app/features/product_details/data/repo/product_details_repository_impl.dart';
+import 'package:bootx_app/features/product_details/domain/repo/get_product_details_usecase.dart';
+import 'package:bootx_app/features/product_details/domain/repo/product_details_repositor.dart';
+import 'package:bootx_app/features/product_details/presentation/controller/product_detlais_bloc.dart';
 import 'package:bootx_app/features/search/data/data_source/search_history_local_data_source.dart';
 import 'package:bootx_app/features/search/data/data_source/search_history_local_data_source_impl.dart';
 import 'package:bootx_app/features/search/data/data_source/search_remote_data_source.dart';
@@ -149,4 +155,23 @@ void setupServiceLocator() {
     ),
   );
   getIt.registerLazySingleton<PrefManger>(() => PrefManger.SharedPrefManger());
+  // Data Source
+  getIt.registerLazySingleton<ProductDetailsRemoteDataSource>(
+    () => ProductDetailsRemoteDataSourceImpl(getIt<ApiService>()),
+  );
+
+  // Repository
+  getIt.registerLazySingleton<ProductDetailsRepository>(
+    () => ProductDetailsRepositoryImpl(getIt<ProductDetailsRemoteDataSource>()),
+  );
+
+  // UseCase
+  getIt.registerLazySingleton<GetProductDetailsUseCase>(
+    () => GetProductDetailsUseCase(getIt<ProductDetailsRepository>()),
+  );
+
+  // Bloc
+  getIt.registerFactory<ProductDetailsBloc>(
+    () => ProductDetailsBloc(getIt<GetProductDetailsUseCase>()),
+  );
 }

@@ -27,4 +27,9 @@ class AppImage {
   static const String searchIcon = 'assets/images/search_icon.svg';
   static const String searchEmpty = 'assets/images/search_empty.svg';
   static const String errorView = 'assets/images/error_view.svg';
+  static const String shoe1 = 'assets/images/product_details/shoe1.png';
+  static const String shoe2 = 'assets/images/product_details/shoe2.png';
+  static const String shoe3 = 'assets/images/product_details/shoe3.png';
+  static const String galleryFrame =
+      'assets/images/product_details/gallery_frame.svg';
 }
