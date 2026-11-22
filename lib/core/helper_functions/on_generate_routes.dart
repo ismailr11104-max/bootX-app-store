@@ -1,3 +1,4 @@
+import 'package:bootx_app/core/entity/product_entity.dart';
 import 'package:bootx_app/core/services/service_locator/setup_service_locator.dart';
 import 'package:bootx_app/features/auth/presentation/page/sign_in_page.dart';
 import 'package:bootx_app/features/auth/presentation/page/sign_up_page.dart';
@@ -6,6 +7,7 @@ import 'package:bootx_app/features/favorite/presentation/page/favorite_page.dart
 import 'package:bootx_app/features/home/presentation/page/home_page.dart';
 import 'package:bootx_app/features/main_navigation_screen/presentation/main_navigation_view.dart';
 import 'package:bootx_app/features/onboarding/presentation/page/onboarding_page.dart';
+import 'package:bootx_app/features/product_details/presentation/page/product_details_page.dart';
 import 'package:bootx_app/features/profile/presentation/page/profile_page.dart';
 import 'package:bootx_app/features/search/presentation/controller/search_bloc/search_bloc.dart';
 import 'package:bootx_app/features/search/presentation/page/search_page.dart';
@@ -38,6 +40,11 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
           create: (_) => getIt<SearchBloc>(),
           child: const SearchPage(),
         ),
+      );
+    case ProductDetailsPage.detailsRoute:
+      final product = settings.arguments as ProductEntity;
+      return MaterialPageRoute(
+        builder: (_) => ProductDetailsPage(product: product),
       );
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());

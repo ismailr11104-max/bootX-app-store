@@ -16,16 +16,18 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl.startsWith('http')) {
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
       return Image.network(
         imageUrl,
         width: width,
         height: height,
         fit: fit,
-        errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported),
+        errorBuilder: (_, __, ___) {
+          return Center(child: const Icon(Icons.image_not_supported));
+        },
       );
+    } else {
+      return Image.asset(imageUrl, width: width, height: height, fit: fit);
     }
-
-    return Image.asset(imageUrl, width: width, height: height, fit: fit);
   }
 }
