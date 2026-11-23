@@ -1,4 +1,3 @@
-import 'package:bootx_app/core/entity/product_entity.dart';
 import 'package:bootx_app/core/services/service_locator/setup_service_locator.dart';
 import 'package:bootx_app/features/auth/presentation/page/sign_in_page.dart';
 import 'package:bootx_app/features/auth/presentation/page/sign_up_page.dart';
@@ -42,9 +41,9 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
         ),
       );
     case ProductDetailsPage.detailsRoute:
-      final product = settings.arguments as ProductEntity;
+      final productId = settings.arguments as String;
       return MaterialPageRoute(
-        builder: (_) => ProductDetailsPage(product: product),
+        builder: (_) => ProductDetailsPage(productId: productId),
       );
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());
