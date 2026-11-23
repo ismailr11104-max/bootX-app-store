@@ -34,6 +34,16 @@ class ApiServiceImpl implements ApiService {
     }
   }
 
+  @override
+  Future<T> delete<T>(String endpoint, {Map<String, dynamic>? body}) async {
+    try {
+      final response = await dio.delete<T>(endpoint, data: body);
+      return response.data as T;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
   AppException _handleDioError(DioException error) {
     final statusCode = error.response?.statusCode;
     final serverMessage = _extractServerMessage(error.response?.data);

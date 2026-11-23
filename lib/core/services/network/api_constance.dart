@@ -7,4 +7,6 @@ class ApiConstance {
   static const String productDetails = '/api/products/{id}';
   static const String categories = '/api/categories';
   static const String search = '/api/search';
+  static const String favorites = '/api/favorites';
+  static const String removeFavorite = '/api/favorites/{productId}';
 }
