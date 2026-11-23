@@ -22,7 +22,7 @@ class ProductItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context)
-          .pushNamed(ProductDetailsPage.detailsRoute, arguments: productEntity),
+          .pushNamed(ProductDetailsPage.detailsRoute, arguments: productEntity.id),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

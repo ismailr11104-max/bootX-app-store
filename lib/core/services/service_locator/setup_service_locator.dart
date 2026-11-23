@@ -27,8 +27,8 @@ import 'package:bootx_app/features/home/presentation/controller/bloc_product/pro
 import 'package:bootx_app/features/product_details/data/data_source/product_details_remote_data_source.dart';
 import 'package:bootx_app/features/product_details/data/data_source/product_details_remote_data_source_impl.dart';
 import 'package:bootx_app/features/product_details/data/repo/product_details_repository_impl.dart';
-import 'package:bootx_app/features/product_details/domain/repo/get_product_details_usecase.dart';
 import 'package:bootx_app/features/product_details/domain/repo/product_details_repositor.dart';
+import 'package:bootx_app/features/product_details/domain/usecade/get_product_details_usecase.dart';
 import 'package:bootx_app/features/product_details/presentation/controller/product_detlais_bloc.dart';
 import 'package:bootx_app/features/search/data/data_source/search_history_local_data_source.dart';
 import 'package:bootx_app/features/search/data/data_source/search_history_local_data_source_impl.dart';
