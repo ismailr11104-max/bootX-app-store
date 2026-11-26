@@ -32,4 +32,8 @@ class AppImage {
   static const String shoe3 = 'assets/images/product_details/shoe3.png';
   static const String galleryFrame =
       'assets/images/product_details/gallery_frame.svg';
+  static const String favoriteEmpty = 'assets/images/favorite_empty.svg';
+  static const String addFavorite = 'assets/images/add_favorite.svg';
+  static const String nonAddFavorite = 'assets/images/non_add_favorite.svg';
+  static const String notification = 'assets/images/notification.svg';
 }

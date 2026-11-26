@@ -5,8 +5,20 @@ import 'package:flutter/material.dart';
 class ProductGridView extends StatelessWidget {
   final List<ProductEntity> products;
   final ValueChanged<ProductEntity>? onProductTap;
+  final ValueChanged<ProductEntity>? onFavoriteTap;
+  final bool Function(ProductEntity product)? isProductFavorite;
+  final bool isAdded;
+  final bool isFavorite;
 
-  const ProductGridView({super.key, required this.products, this.onProductTap});
+  const ProductGridView({
+    super.key,
+    required this.products,
+    this.onProductTap,
+    this.onFavoriteTap,
+    this.isProductFavorite,
+    this.isAdded = true,
+    this.isFavorite = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +28,10 @@ class ProductGridView extends StatelessWidget {
         delegate: SliverChildBuilderDelegate((context, index) {
           final product = products[index];
           return ProductItemCard(
-            tag: 'BEST SELLER',
             productEntity: product,
+            isAdded: isAdded,
+            isFavorite: isProductFavorite?.call(product) ?? isFavorite,
+            onFavoriteTap: () => onFavoriteTap?.call(product),
             onAddTap: () {},
           );
         }, childCount: products.length),
