@@ -12,6 +12,14 @@ import 'package:bootx_app/features/auth/domain/repo/sign_in_repository.dart';
 import 'package:bootx_app/features/auth/domain/repo/sign_up_repository.dart';
 import 'package:bootx_app/features/auth/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:bootx_app/features/auth/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
+import 'package:bootx_app/features/favorite/data/data_source/favourite_remote_data_source.dart';
+import 'package:bootx_app/features/favorite/data/data_source/favourite_remote_data_source_impl.dart';
+import 'package:bootx_app/features/favorite/data/repo/favourite_repository_impl.dart';
+import 'package:bootx_app/features/favorite/domain/repo/favourite_repository.dart';
+import 'package:bootx_app/features/favorite/domain/usecase/add_favourite_usecase.dart';
+import 'package:bootx_app/features/favorite/domain/usecase/get_favourites_usecase.dart';
+import 'package:bootx_app/features/favorite/domain/usecase/remove_favourite_usecase.dart';
+import 'package:bootx_app/features/favorite/presentation/controller/favourite_bloc.dart';
 import 'package:bootx_app/features/home/data/data_source/category_remote_data_source.dart';
 import 'package:bootx_app/features/home/data/data_source/category_remote_data_source_impl.dart';
 import 'package:bootx_app/features/home/data/data_source/product_remote_data_source.dart';
@@ -173,5 +181,29 @@ void setupServiceLocator() {
   // Bloc
   getIt.registerFactory<ProductDetailsBloc>(
     () => ProductDetailsBloc(getIt<GetProductDetailsUseCase>()),
+  );
+
+  // Favourite Feature
+  getIt.registerLazySingleton<FavouriteRemoteDataSource>(
+    () => FavouriteRemoteDataSourceImpl(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<FavouriteRepository>(
+    () => FavouriteRepositoryImpl(getIt<FavouriteRemoteDataSource>()),
+  );
+  getIt.registerLazySingleton<GetFavouritesUseCase>(
+    () => GetFavouritesUseCase(getIt<FavouriteRepository>()),
+  );
+  getIt.registerLazySingleton<RemoveFavouriteUseCase>(
+    () => RemoveFavouriteUseCase(getIt<FavouriteRepository>()),
+  );
+  getIt.registerLazySingleton<AddFavouriteUseCase>(
+    () => AddFavouriteUseCase(getIt<FavouriteRepository>()),
+  );
+  getIt.registerFactory<FavouriteBloc>(
+    () => FavouriteBloc(
+      getFavouritesUseCase: getIt<GetFavouritesUseCase>(),
+      addFavouriteUseCase: getIt<AddFavouriteUseCase>(),
+      removeFavouriteUseCase: getIt<RemoveFavouriteUseCase>(),
+    ),
   );
 }
