@@ -1,6 +1,9 @@
 import 'package:bootx_app/core/helper_functions/get_dummy_product.dart';
 import 'package:bootx_app/core/wigets/app_error_view.dart';
 import 'package:bootx_app/core/wigets/product_grid_view.dart';
+import 'package:bootx_app/features/favorite/presentation/controller/favourite_bloc.dart';
+import 'package:bootx_app/features/favorite/presentation/controller/favourite_event.dart';
+import 'package:bootx_app/features/favorite/presentation/controller/favourite_state.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_product/product_bloc.dart';
 import 'package:bootx_app/features/home/presentation/controller/bloc_product/product_state.dart';
 import 'package:bootx_app/features/product_details/presentation/page/product_details_page.dart';
@@ -16,11 +19,24 @@ class ProductBlocView extends StatelessWidget {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
         if (state is ProductLoaded) {
-          return ProductGridView(
-            products: state.products,
-            onProductTap: (_) =>
-                Navigator.of(context)
-                    .pushNamed(ProductDetailsPage.detailsRoute),
+          return BlocBuilder<FavouriteBloc, FavouriteState>(
+            builder: (context, favouriteState) {
+              final favouriteBloc = context.read<FavouriteBloc>();
+              return ProductGridView(
+                products: state.products,
+                isProductFavorite: (product) =>
+                    favouriteBloc.isFavourite(product.id),
+                onProductTap: (product) {
+                  Navigator.of(context).pushNamed(
+                    ProductDetailsPage.detailsRoute,
+                    arguments: product.id,
+                  );
+                },
+                onFavoriteTap: (product) {
+                  favouriteBloc.add(ToggleFavouriteEvent(product));
+                },
+              );
+            },
           );
         }
 

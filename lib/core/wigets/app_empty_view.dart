@@ -11,35 +11,36 @@ class AppEmptyView extends StatelessWidget {
     this.image,
   });
 
-  final String title, subtitle;
+  final String title;
+  final String subtitle;
   final String? image;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(image ?? '', width: 150),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              style: AppTextStyles.medium18.copyWith(
-                color: AppColors.textLightPrimary,
-              ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (image != null && image!.isNotEmpty)
+            SvgPicture.asset(image!, width: 150, fit: BoxFit.contain),
+          const SizedBox(height: 16),
+          Text(
+            title,
+            style: AppTextStyles.medium18.copyWith(
+              color: AppColors.textLightPrimary,
             ),
-            const SizedBox(height: 8),
-            Text(
-              textAlign: TextAlign.center,
-              subtitle,
-              style: AppTextStyles.medium14.copyWith(
-                color: AppColors.textLightSecondary,
-              ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            style: AppTextStyles.medium14.copyWith(
+              color: AppColors.textLightSecondary,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
