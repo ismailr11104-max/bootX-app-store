@@ -1,6 +1,8 @@
 import 'package:bootx_app/core/helper_functions/get_dummy_product.dart';
 import 'package:bootx_app/core/wigets/app_error_view.dart';
 import 'package:bootx_app/core/wigets/product_grid_view.dart';
+import 'package:bootx_app/features/cart/presentation/controller/cart_bloc.dart';
+import 'package:bootx_app/features/cart/presentation/controller/cart_event.dart';
 import 'package:bootx_app/features/favorite/presentation/controller/favourite_bloc.dart';
 import 'package:bootx_app/features/favorite/presentation/controller/favourite_event.dart';
 import 'package:bootx_app/features/favorite/presentation/controller/favourite_state.dart';
@@ -30,6 +32,11 @@ class ProductBlocView extends StatelessWidget {
                   Navigator.of(context).pushNamed(
                     ProductDetailsPage.detailsRoute,
                     arguments: product.id,
+                  );
+                },
+                onAddTap: (product) {
+                  context.read<CartBloc>().add(
+                    AddProductToCartEvent(productId: product.id, quantity: 1),
                   );
                 },
                 onFavoriteTap: (product) {

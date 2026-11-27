@@ -1,4 +1,6 @@
 import 'package:bootx_app/core/services/service_locator/setup_service_locator.dart';
+import 'package:bootx_app/features/cart/presentation/controller/cart_bloc.dart';
+import 'package:bootx_app/features/cart/presentation/controller/cart_event.dart';
 import 'package:bootx_app/features/cart/presentation/page/cart_page.dart';
 import 'package:bootx_app/features/favorite/presentation/controller/favourite_bloc.dart';
 import 'package:bootx_app/features/favorite/presentation/controller/favourite_event.dart';
@@ -47,6 +49,9 @@ class _MainNavigationScreenState extends State<MainNavigationView> {
         BlocProvider<FavouriteBloc>(
           create: (_) =>
               getIt<FavouriteBloc>()..add(const GetFavouritesEvent()),
+        ),
+        BlocProvider<CartBloc>(
+          create: (_) => getIt<CartBloc>()..add(LoadCartEvent()),
         ),
       ],
       child: Scaffold(

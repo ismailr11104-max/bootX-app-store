@@ -12,6 +12,16 @@ import 'package:bootx_app/features/auth/domain/repo/sign_in_repository.dart';
 import 'package:bootx_app/features/auth/domain/repo/sign_up_repository.dart';
 import 'package:bootx_app/features/auth/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:bootx_app/features/auth/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
+import 'package:bootx_app/features/cart/data/data_sources/cart_remote_datasource.dart';
+import 'package:bootx_app/features/cart/data/data_sources/cart_remote_datasource_impl.dart';
+import 'package:bootx_app/features/cart/data/repo/cart_repository_impl.dart';
+import 'package:bootx_app/features/cart/domain/repo/cart_repo.dart';
+import 'package:bootx_app/features/cart/domain/usecase/add_cart_usecase.dart';
+import 'package:bootx_app/features/cart/domain/usecase/clear_cart_usecase.dart';
+import 'package:bootx_app/features/cart/domain/usecase/get_cart_usecase.dart';
+import 'package:bootx_app/features/cart/domain/usecase/remove_cart_item_usecase.dart';
+import 'package:bootx_app/features/cart/domain/usecase/update_cart_item_usecase.dart';
+import 'package:bootx_app/features/cart/presentation/controller/cart_bloc.dart';
 import 'package:bootx_app/features/favorite/data/data_source/favourite_remote_data_source.dart';
 import 'package:bootx_app/features/favorite/data/data_source/favourite_remote_data_source_impl.dart';
 import 'package:bootx_app/features/favorite/data/repo/favourite_repository_impl.dart';
@@ -204,6 +214,45 @@ void setupServiceLocator() {
       getFavouritesUseCase: getIt<GetFavouritesUseCase>(),
       addFavouriteUseCase: getIt<AddFavouriteUseCase>(),
       removeFavouriteUseCase: getIt<RemoveFavouriteUseCase>(),
+    ),
+  );
+
+  // Cart Feature
+
+  getIt.registerLazySingleton<CartRemoteDataSource>(
+    () => CartRemoteDataSourceImpl(getIt<ApiService>()),
+  );
+
+  getIt.registerLazySingleton<CartRepository>(
+    () => CartRepositoryImpl(getIt<CartRemoteDataSource>()),
+  );
+
+  getIt.registerLazySingleton<GetCartUseCase>(
+    () => GetCartUseCase(getIt<CartRepository>()),
+  );
+
+  getIt.registerLazySingleton<AddToCartUseCase>(
+    () => AddToCartUseCase(getIt<CartRepository>()),
+  );
+  getIt.registerLazySingleton<UpdateCartItemUseCase>(
+    () => UpdateCartItemUseCase(getIt<CartRepository>()),
+  );
+
+  getIt.registerLazySingleton<RemoveCartItemUseCase>(
+    () => RemoveCartItemUseCase(getIt<CartRepository>()),
+  );
+
+  getIt.registerLazySingleton<ClearCartUseCase>(
+    () => ClearCartUseCase(getIt<CartRepository>()),
+  );
+
+  getIt.registerFactory<CartBloc>(
+    () => CartBloc(
+      getCart: getIt<GetCartUseCase>(),
+      addToCart: getIt<AddToCartUseCase>(),
+      updateCartItem: getIt<UpdateCartItemUseCase>(),
+      removeCartItem: getIt<RemoveCartItemUseCase>(),
+      clearCart: getIt<ClearCartUseCase>(),
     ),
   );
 }

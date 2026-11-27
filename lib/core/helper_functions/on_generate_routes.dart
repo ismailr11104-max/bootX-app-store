@@ -1,7 +1,6 @@
 import 'package:bootx_app/core/services/service_locator/setup_service_locator.dart';
 import 'package:bootx_app/features/auth/presentation/page/sign_in_page.dart';
 import 'package:bootx_app/features/auth/presentation/page/sign_up_page.dart';
-import 'package:bootx_app/features/cart/presentation/page/cart_page.dart';
 import 'package:bootx_app/features/home/presentation/page/home_page.dart';
 import 'package:bootx_app/features/main_navigation_screen/presentation/main_navigation_view.dart';
 import 'package:bootx_app/features/onboarding/presentation/page/onboarding_page.dart';
@@ -26,8 +25,6 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const MainNavigationView(),
       );
-    case CartPage.cartRouts:
-      return MaterialPageRoute(builder: (context) => const CartPage());
     case ProfilePage.profileRouts:
       return MaterialPageRoute(builder: (context) => const ProfilePage());
     case SearchPage.searchRoute:

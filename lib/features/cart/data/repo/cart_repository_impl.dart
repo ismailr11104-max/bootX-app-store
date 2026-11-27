@@ -42,6 +42,26 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
+  Future<Either<Failure, Unit>> updateCartItem({
+    required String productId,
+    required int quantity,
+    String size = '',
+    String color = '',
+  }) async {
+    try {
+      await remoteDataSource.updateCartItem(productId, {
+        'quantity': quantity,
+        'size': size,
+        'color': color,
+      });
+
+      return const Right(unit);
+    } on AppException catch (e) {
+      return Left(ServerFailure(e.message));
+    }
+  }
+
+  @override
   Future<Either<Failure, Unit>> removeCartItem(String productId) async {
     try {
       await remoteDataSource.removeCartItem(productId);
