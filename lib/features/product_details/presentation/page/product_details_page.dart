@@ -2,8 +2,6 @@ import 'package:bootx_app/core/services/service_locator/setup_service_locator.da
 import 'package:bootx_app/core/utils/app_colors.dart';
 import 'package:bootx_app/core/utils/app_text_styles.dart';
 import 'package:bootx_app/core/wigets/custom_app_bar.dart';
-import 'package:bootx_app/features/cart/presentation/controller/cart_bloc.dart';
-import 'package:bootx_app/features/cart/presentation/controller/cart_event.dart';
 import 'package:bootx_app/features/product_details/presentation/controller/product_detlais_bloc.dart';
 import 'package:bootx_app/features/product_details/presentation/controller/product_detlais_event.dart';
 import 'package:bootx_app/features/product_details/presentation/controller/product_detlais_state.dart';
@@ -62,11 +60,8 @@ class ProductDetailsPage extends StatelessWidget {
             return ProductDetailsBottom(
               product: state.product,
               onAddToCart: () {
-                context.read<CartBloc>().add(
-                  AddProductToCartEvent(
-                    productId: state.product.id,
-                    quantity: 1,
-                  ),
+                context.read<ProductDetailsBloc>().add(
+                  AddToCartEvent(state.product),
                 );
               },
             );

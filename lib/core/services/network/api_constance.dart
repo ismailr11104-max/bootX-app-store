@@ -9,7 +9,4 @@ class ApiConstance {
   static const String search = '/api/search';
   static const String favorites = '/api/favorites';
   static const String removeFavorite = '/api/favorites/{productId}';
-  static const String cart = '/api/cart';
-  static String removeCartItem(String productId) => '/api/cart/$productId';
-  static String updateCartItem(String productId) => '/api/cart/$productId';
 }

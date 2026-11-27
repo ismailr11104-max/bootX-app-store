@@ -35,17 +35,6 @@ class ApiServiceImpl implements ApiService {
   }
 
   @override
-  Future<T> put<T>(String endpoint, {Map<String, dynamic>? body}) async {
-    try {
-      final response = await dio.put<T>(endpoint, data: body);
-
-      return response.data as T;
-    } on DioException catch (e) {
-      throw _handleDioError(e);
-    }
-  }
-
-  @override
   Future<T> delete<T>(String endpoint, {Map<String, dynamic>? body}) async {
     try {
       final response = await dio.delete<T>(endpoint, data: body);

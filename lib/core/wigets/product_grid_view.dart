@@ -6,7 +6,6 @@ class ProductGridView extends StatelessWidget {
   final List<ProductEntity> products;
   final ValueChanged<ProductEntity>? onProductTap;
   final ValueChanged<ProductEntity>? onFavoriteTap;
-  final ValueChanged<ProductEntity>? onAddTap;
   final bool Function(ProductEntity product)? isProductFavorite;
   final bool isAdded;
   final bool isFavorite;
@@ -16,7 +15,6 @@ class ProductGridView extends StatelessWidget {
     required this.products,
     this.onProductTap,
     this.onFavoriteTap,
-    this.onAddTap,
     this.isProductFavorite,
     this.isAdded = true,
     this.isFavorite = false,
@@ -29,13 +27,12 @@ class ProductGridView extends StatelessWidget {
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate((context, index) {
           final product = products[index];
-
           return ProductItemCard(
             productEntity: product,
             isAdded: isAdded,
             isFavorite: isProductFavorite?.call(product) ?? isFavorite,
             onFavoriteTap: () => onFavoriteTap?.call(product),
-            onAddTap: () => onAddTap?.call(product),
+            onAddTap: () {},
           );
         }, childCount: products.length),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
