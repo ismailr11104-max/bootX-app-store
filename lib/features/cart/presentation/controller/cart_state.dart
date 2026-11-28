@@ -13,11 +13,12 @@ class CartLoading extends CartState {}
 
 class CartLoaded extends CartState {
   final CartEntity cart;
+  final String? message;
 
-  CartLoaded(this.cart);
+  CartLoaded(this.cart, {this.message});
 
   @override
-  List<Object?> get props => [cart];
+  List<Object?> get props => [cart, message];
 }
 
 class CartActionSuccess extends CartState {

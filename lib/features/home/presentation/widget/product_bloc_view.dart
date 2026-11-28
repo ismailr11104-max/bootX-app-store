@@ -36,7 +36,11 @@ class ProductBlocView extends StatelessWidget {
                 },
                 onAddTap: (product) {
                   context.read<CartBloc>().add(
-                    AddProductToCartEvent(productId: product.id, quantity: 1),
+                    AddProductToCartEvent(
+                      productId: product.id,
+                      quantity: 1,
+                      product: product,
+                    ),
                   );
                 },
                 onFavoriteTap: (product) {

@@ -21,6 +21,7 @@ class CartPage extends StatelessWidget {
           backgroundColor: AppColors.background,
           appBar: CustomAppBar(
             title: 'My Cart',
+            showBackButton: false,
             trailing: hasItems ? const CartClearButton() : null,
           ),
           body: const CartBody(),

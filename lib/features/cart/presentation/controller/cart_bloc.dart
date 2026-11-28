@@ -37,7 +37,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     await _refreshCart(emit);
   }
 
-  // Add Product
   Future<void> _onAddProduct(
     AddProductToCartEvent event,
     Emitter<CartState> emit,
@@ -54,12 +53,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartError(failure.message));
       },
       (_) async {
-        await _refreshCart(emit);
+        await _refreshCart(
+          emit,
+          message: 'The product has been added successfully to the cart.',
+        );
       },
     );
   }
 
-  // Update Quantity
   Future<void> _onUpdateQuantity(
     UpdateItemQuantityEvent event,
     Emitter<CartState> emit,
@@ -86,7 +87,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     );
   }
 
-  // Remove Item
   Future<void> _onRemoveItem(
     RemoveItemEvent event,
     Emitter<CartState> emit,
@@ -98,12 +98,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartError(failure.message));
       },
       (_) async {
-        await _refreshCart(emit);
+        await _refreshCart(
+          emit,
+          message: 'The product has been removed successfully from the cart.',
+        );
       },
     );
   }
 
-  // Clear Cart
   Future<void> _onClearCart(
     ClearCartEvent event,
     Emitter<CartState> emit,
@@ -120,12 +122,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     );
   }
 
-  Future<void> _refreshCart(Emitter<CartState> emit) async {
+  Future<void> _refreshCart(Emitter<CartState> emit, {String? message}) async {
     final result = await getCart();
 
     result.fold(
       (failure) => emit(CartError(failure.message)),
-      (cart) => emit(CartLoaded(cart as CartEntity)),
+      (cart) => emit(CartLoaded(cart as CartEntity, message: message)),
     );
   }
 }

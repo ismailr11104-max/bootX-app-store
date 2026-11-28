@@ -36,4 +36,6 @@ class AppImage {
   static const String addFavorite = 'assets/images/add_favorite.svg';
   static const String nonAddFavorite = 'assets/images/non_add_favorite.svg';
   static const String notification = 'assets/images/notification.svg';
+  static const String cartEmpty = 'assets/images/cart_empty.svg';
+  static const String trashCart = 'assets/images/trash.svg';
 }

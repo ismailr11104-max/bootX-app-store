@@ -3,8 +3,10 @@ import 'package:bootx_app/core/utils/app_colors.dart';
 import 'package:bootx_app/core/utils/app_text_styles.dart';
 import 'package:bootx_app/core/wigets/custom_network_image.dart';
 import 'package:bootx_app/core/wigets/favorite_heart_button.dart';
+import 'package:bootx_app/features/cart/presentation/controller/cart_bloc.dart';
 import 'package:bootx_app/features/product_details/presentation/page/product_details_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductItemCard extends StatelessWidget {
@@ -26,9 +28,16 @@ class ProductItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(
-        context,
-      ).pushNamed(ProductDetailsPage.detailsRoute, arguments: productEntity.id),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+              value: context.read<CartBloc>(),
+              child: ProductDetailsPage(productId: productEntity.id),
+            ),
+          ),
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
