@@ -3,10 +3,9 @@ import 'package:bootx_app/features/cart/domain/usecase/clear_cart_usecase.dart';
 import 'package:bootx_app/features/cart/domain/usecase/get_cart_usecase.dart';
 import 'package:bootx_app/features/cart/domain/usecase/remove_cart_item_usecase.dart';
 import 'package:bootx_app/features/cart/domain/usecase/update_cart_item_usecase.dart';
+import 'package:bootx_app/features/cart/presentation/controller/cart_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/entities/cart_entity.dart';
-import 'cart_event.dart';
 import 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
@@ -127,7 +126,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     result.fold(
       (failure) => emit(CartError(failure.message)),
-      (cart) => emit(CartLoaded(cart as CartEntity, message: message)),
+      (cart) => emit(CartLoaded(cart, message: message)),
     );
   }
 }
